@@ -3,130 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site com Pop-up e Loop</title>
+    <title>Site com Múltiplos Pop-ups</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
             padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
         
         h1 {
-            color: #333;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         p {
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
         
         .warning {
-            color: #e74c3c;
-            font-weight: bold;
-            margin-bottom: 20px;
+            background-color: rgba(231, 76, 60, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
         }
         
         button {
-            background-color: #3498db;
+            background: linear-gradient(to right, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 5px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
         }
         
         button:hover {
-            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
         }
         
         .status {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
             display: none;
+            transition: all 0.3s ease;
         }
         
         .active {
-            background-color: #e74c3c;
-            color: white;
             display: block;
+            background-color: rgba(52, 152, 219, 0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        .popup-counter {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            background-color: rgba(46, 204, 113, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 5px solid #2ecc71;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #2ecc71;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% {transform: translateX(0);}
+            10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+            20%, 40%, 60%, 80% {transform: translateX(5px);}
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Site com Pop-up e Loop</h1>
-        <p>Clique no botão abaixo para iniciar o processo. Um pop-up será aberto para o Google.com. Após aceitar, um loop infinito começará a abrir o link especificado.</p>
+        <h1>Site com Múltiplos Pop-ups</h1>
+        <p>Clique no botão abaixo para iniciar o processo. Serão abertos 5 pop-ups do Google. Após aceitar todos, um loop infinito começará a abrir o link especificado.</p>
         
         <div class="warning">
-            AVISO: Este site abrirá múltiplas janelas. Use com cuidado!
+            <strong>AVISO:</strong> Este site abrirá múltiplas janelas. Use com cuidado!
         </div>
         
-        <button id="finalizarBtn">Finalizar</button>
+        <div class="instructions">
+            <h3>Instruções:</h3>
+            <ol>
+                <li>Clique no botão "Iniciar Processo"</li>
+                <li>Permita que 5 pop-ups do Google sejam abertos</li>
+                <li>Aceite todos os pop-ups (não feche manualmente)</li>
+                <li>Após aceitar todos, o loop infinito começará automaticamente</li>
+            </ol>
+        </div>
+        
+        <div class="popup-counter" id="popupCounter">Pop-ups abertos: 0/5</div>
+        
+        <button id="finalizarBtn">Iniciar Processo</button>
         
         <div id="status" class="status"></div>
     </div>
+    
+    <footer>
+        <p>Este é um exemplo educacional. Use com responsabilidade.</p>
+    </footer>
 
     <script>
         document.getElementById('finalizarBtn').addEventListener('click', function() {
-            // Abre pop-up para o Google
-            const popup = window.open('https://www.google.com', 'popup', 'width=600,height=400');
+            const button = this;
+            const status = document.getElementById('status');
+            const popupCounter = document.getElementById('popupCounter');
+            
+            // Desabilita o botão para evitar múltiplos cliques
+            button.disabled = true;
+            button.textContent = 'Processando...';
             
             // Atualiza status
-            const status = document.getElementById('status');
-            status.textContent = 'Pop-up aberto. Aceite-o para iniciar o loop...';
+            status.textContent = 'Abrindo pop-ups do Google...';
             status.className = 'status active';
             
-            // Verifica se o pop-up foi bloqueado
-            if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-                status.textContent = 'Pop-up bloqueado! Por favor, permita pop-ups para este site e tente novamente.';
-                return;
+            let popupsOpened = 0;
+            const totalPopups = 5;
+            const popups = [];
+            
+            // Função para abrir pop-ups
+            function openPopup() {
+                if (popupsOpened < totalPopups) {
+                    const popup = window.open('https://www.google.com', `popup${popupsOpened}`, 'width=600,height=400,top=' + (100 + popupsOpened * 50) + ',left=' + (100 + popupsOpened * 50));
+                    
+                    if (popup && !popup.closed) {
+                        popups.push(popup);
+                        popupsOpened++;
+                        popupCounter.textContent = `Pop-ups abertos: ${popupsOpened}/${totalPopups}`;
+                        
+                        // Abre o próximo pop-up após um pequeno intervalo
+                        setTimeout(openPopup, 500);
+                    } else {
+                        status.textContent = 'Pop-up bloqueado! Por favor, permita pop-ups para este site e tente novamente.';
+                        status.classList.add('shake');
+                        button.disabled = false;
+                        button.textContent = 'Tentar Novamente';
+                    }
+                } else {
+                    // Todos os pop-ups foram abertos, agora aguarda o usuário aceitá-los
+                    status.textContent = 'Todos os pop-ups foram abertos. Aguardando você aceitá-los...';
+                    
+                    // Verifica periodicamente se os pop-ups foram fechados
+                    const checkPopups = setInterval(() => {
+                        let closedPopups = 0;
+                        
+                        for (let i = 0; i < popups.length; i++) {
+                            if (popups[i].closed) {
+                                closedPopups++;
+                            }
+                        }
+                        
+                        if (closedPopups === totalPopups) {
+                            clearInterval(checkPopups);
+                            status.textContent = 'Todos os pop-ups foram aceitos! Iniciando loop infinito...';
+                            
+                            // Inicia o loop infinito após um breve delay
+                            setTimeout(startInfiniteLoop, 1000);
+                        }
+                    }, 500);
+                }
             }
             
-            // Aguarda o usuário interagir com o pop-up
-            const checkPopup = setInterval(() => {
-                if (popup.closed) {
-                    clearInterval(checkPopup);
-                    status.textContent = 'Pop-up fechado. Iniciando loop...';
-                    
-                    // Inicia o loop infinito
-                    startInfiniteLoop();
-                }
-            }, 500);
+            // Inicia a abertura dos pop-ups
+            openPopup();
         });
         
         function startInfiniteLoop() {
             const status = document.getElementById('status');
-            status.textContent = 'Loop infinito iniciado!';
+            status.textContent = 'Loop infinito iniciado! Abrindo links continuamente...';
+            
+            let loopCount = 0;
             
             // Função para abrir o link em loop
             function openLink() {
-                window.open('https://trava-link.vercel.app/', '_blank');
+                window.open('https://trava-link.vercel.app/', `loop${loopCount}`);
+                loopCount++;
+                
+                // Atualiza o status com o contador
+                if (loopCount % 5 === 0) {
+                    status.textContent = `Loop infinito em execução... ${loopCount} links abertos`;
+                }
             }
             
             // Abre o primeiro link imediatamente
             openLink();
             
             // Continua abrindo links a cada segundo
-            setInterval(openLink, 000);
+            setInterval(openLink, 00);
         }
     </script>
 </body>
