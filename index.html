@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site com Múltiplos Pop-ups</title>
+    <title>Site Feito por:CLEITI6966HUBS</title>
     <style>
         * {
             margin: 0;
@@ -239,27 +239,11 @@
                         button.textContent = 'Tentar Novamente';
                     }
                 } else {
-                    // Todos os pop-ups foram abertos, agora aguarda o usuário aceitá-los
-                    status.textContent = 'Todos os pop-ups foram abertos. Aguardando você aceitá-los...';
+                    // Todos os pop-ups foram abertos, agora inicia o loop automaticamente
+                    status.textContent = 'Todos os pop-ups foram abertos! Iniciando loop infinito...';
                     
-                    // Verifica periodicamente se os pop-ups foram fechados
-                    const checkPopups = setInterval(() => {
-                        let closedPopups = 0;
-                        
-                        for (let i = 0; i < popups.length; i++) {
-                            if (popups[i].closed) {
-                                closedPopups++;
-                            }
-                        }
-                        
-                        if (closedPopups === totalPopups) {
-                            clearInterval(checkPopups);
-                            status.textContent = 'Todos os pop-ups foram aceitos! Iniciando loop infinito...';
-                            
-                            // Inicia o loop infinito após um breve delay
-                            setTimeout(startInfiniteLoop, 1000);
-                        }
-                    }, 500);
+                    // Inicia o loop infinito após um breve delay
+                    setTimeout(startInfiniteLoop, 1000);
                 }
             }
             
