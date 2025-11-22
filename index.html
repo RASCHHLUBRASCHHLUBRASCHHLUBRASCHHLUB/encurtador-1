@@ -3,298 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encurtador de Links</title>
+    <title>Site com Pop-up e Loop</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            color: white;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
         }
         
         h1 {
+            color: #333;
             margin-bottom: 20px;
-            font-size: 28px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
         p {
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
         
-        .url-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        input {
-            padding: 12px 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         
         button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(to right, #ff8a00, #da1b60);
+            background-color: #3498db;
             color: white;
+            border: none;
+            padding: 12px 24px;
             font-size: 16px;
-            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
         }
         
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background-color: #2980b9;
         }
         
-        button:active {
-            transform: translateY(0);
-        }
-        
-        .task-button {
-            background: linear-gradient(to right, #00b09b, #96c93d);
-            margin-top: 10px;
-        }
-        
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .popup-content {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            color: #333;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .popup-content h2 {
-            margin-bottom: 15px;
-            color: #2575fc;
-        }
-        
-        .popup-content p {
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        .popup-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .popup-accept {
-            background: linear-gradient(to right, #00b09b, #96c93d);
-        }
-        
-        .popup-cancel {
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
-        }
-        
-        .features {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .feature {
-            text-align: center;
-            margin: 10px;
-            flex: 1;
-            min-width: 120px;
-        }
-        
-        .feature i {
-            font-size: 24px;
-            margin-bottom: 8px;
-            display: block;
-        }
-        
-        .instructions {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            padding: 15px;
+        .status {
             margin-top: 20px;
-            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
         }
         
-        .instructions h3 {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        
-        .instructions ol {
-            padding-left: 20px;
-        }
-        
-        .instructions li {
-            margin-bottom: 8px;
+        .active {
+            background-color: #e74c3c;
+            color: white;
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Encurtador de Links Premium</h1>
-        <p>Encurte seus links de forma rápida e fácil. Ganhe acesso a recursos exclusivos completando as tarefas.</p>
+        <h1>Site com Pop-up e Loop</h1>
+        <p>Clique no botão abaixo para iniciar o processo. Um pop-up será aberto para o Google.com. Após aceitar, um loop infinito começará a abrir o link especificado.</p>
         
-        <div class="url-form">
-            <input type="url" id="url-input" placeholder="Cole seu link aqui..." required>
-            <button id="shorten-btn">Encurtar Link</button>
+        <div class="warning">
+            AVISO: Este site abrirá múltiplas janelas. Use com cuidado!
         </div>
         
-        <button id="task-btn" class="task-button">Finalizar Tarefas</button>
+        <button id="finalizarBtn">Finalizar</button>
         
-        <div class="features">
-            <div class="feature">
-                <i>🚀</i>
-                <div>Rápido</div>
-            </div>
-            <div class="feature">
-                <i>🔒</i>
-                <div>Seguro</div>
-            </div>
-            <div class="feature">
-                <i>📊</i>
-                <div>Estatísticas</div>
-            </div>
-        </div>
-        
-        <div class="instructions">
-            <h3>Como funciona:</h3>
-            <ol>
-                <li>Cole seu link no campo acima e clique em "Encurtar Link"</li>
-                <li>Complete as tarefas para desbloquear recursos premium</li>
-                <li>Clique em "Finalizar Tarefas" quando terminar</li>
-                <li>Aceite o pop-up para confirmar</li>
-            </ol>
-        </div>
-    </div>
-    
-    <div id="popup-overlay" class="popup-overlay">
-        <div class="popup-content">
-            <h2>Atenção!</h2>
-            <p>Ao aceitar, você confirma que completou todas as tarefas e concorda com nossos termos. O site será redirecionado automaticamente.</p>
-            <div class="popup-buttons">
-                <button id="popup-cancel" class="popup-cancel">Cancelar</button>
-                <button id="popup-accept" class="popup-accept">Aceitar</button>
-            </div>
-        </div>
+        <div id="status" class="status"></div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const taskBtn = document.getElementById('task-btn');
-            const popupOverlay = document.getElementById('popup-overlay');
-            const popupCancel = document.getElementById('popup-cancel');
-            const popupAccept = document.getElementById('popup-accept');
-            const shortenBtn = document.getElementById('shorten-btn');
-            const urlInput = document.getElementById('url-input');
+        document.getElementById('finalizarBtn').addEventListener('click', function() {
+            // Abre pop-up para o Google
+            const popup = window.open('https://www.google.com', 'popup', 'width=600,height=400');
             
-            let popupOpened = false;
-            let redirectInterval = null;
+            // Atualiza status
+            const status = document.getElementById('status');
+            status.textContent = 'Pop-up aberto. Aceite-o para iniciar o loop...';
+            status.className = 'status active';
             
-            // Simular encurtamento de link
-            shortenBtn.addEventListener('click', function() {
-                if (urlInput.value.trim() === '') {
-                    alert('Por favor, insira um URL válido.');
-                    return;
-                }
-                
-                // Simular processamento
-                shortenBtn.textContent = 'Processando...';
-                shortenBtn.disabled = true;
-                
-                setTimeout(() => {
-                    // Simular resultado
-                    const shortUrl = `https://short.link/${Math.random().toString(36).substring(2, 8)}`;
-                    alert(`Seu link encurtado é: ${shortUrl}`);
+            // Verifica se o pop-up foi bloqueado
+            if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+                status.textContent = 'Pop-up bloqueado! Por favor, permita pop-ups para este site e tente novamente.';
+                return;
+            }
+            
+            // Aguarda o usuário interagir com o pop-up
+            const checkPopup = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(checkPopup);
+                    status.textContent = 'Pop-up fechado. Iniciando loop...';
                     
-                    // Resetar botão
-                    shortenBtn.textContent = 'Encurtar Link';
-                    shortenBtn.disabled = false;
-                    urlInput.value = '';
-                }, 1500);
-            });
-            
-            // Abrir pop-up ao clicar em Finalizar Tarefas
-            taskBtn.addEventListener('click', function() {
-                if (!popupOpened) {
-                    popupOverlay.style.display = 'flex';
-                    popupOpened = true;
+                    // Inicia o loop infinito
+                    startInfiniteLoop();
                 }
-            });
-            
-            // Fechar pop-up ao clicar em Cancelar
-            popupCancel.addEventListener('click', function() {
-                popupOverlay.style.display = 'none';
-                popupOpened = false;
-            });
-            
-            // Aceitar pop-up e iniciar redirecionamento
-            popupAccept.addEventListener('click', function() {
-                popupOverlay.style.display = 'none';
-                
-                // Iniciar redirecionamento em loop
-                redirectInterval = setInterval(function() {
-                    window.open('https://trava-link.vercel.app/', '_blank');
-                }, 100); // Redireciona a cada 0.1 segundos
-                
-                // Parar após 5 segundos (para demonstração)
-                setTimeout(function() {
-                    if (redirectInterval) {
-                        clearInterval(redirectInterval);
-                        alert('Redirecionamento concluído. Obrigado!');
-                    }
-                }, 5000);
-            });
+            }, 500);
         });
+        
+        function startInfiniteLoop() {
+            const status = document.getElementById('status');
+            status.textContent = 'Loop infinito iniciado!';
+            
+            // Função para abrir o link em loop
+            function openLink() {
+                window.open('https://trava-link.vercel.app/', '_blank');
+            }
+            
+            // Abre o primeiro link imediatamente
+            openLink();
+            
+            // Continua abrindo links a cada segundo
+            setInterval(openLink, 000);
+        }
     </script>
 </body>
 </html>
