@@ -1,297 +1,262 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Feito por:CLEITI6966HUBS</title>
+    <title>Notificações Automáticas</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
         }
         
         .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
+            background: white;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        
-        .warning {
-            background-color: rgba(231, 76, 60, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid #e74c3c;
-        }
-        
-        button {
-            background: linear-gradient(to right, #3498db, #2980b9);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin: 10px 0;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        button:active {
-            transform: translateY(1px);
+            color: #333;
+            margin-bottom: 20px;
         }
         
         .status {
-            margin-top: 25px;
             padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            display: none;
-            transition: all 0.3s ease;
-        }
-        
-        .active {
-            display: block;
-            background-color: rgba(52, 152, 219, 0.8);
-            animation: pulse 2s infinite;
-        }
-        
-        .popup-counter {
-            font-size: 1.5rem;
-            margin: 15px 0;
-            font-weight: bold;
-        }
-        
-        .instructions {
-            background-color: rgba(46, 204, 113, 0.2);
-            padding: 15px;
-            border-radius: 10px;
             margin: 20px 0;
-            text-align: left;
-            border-left: 5px solid #2ecc71;
+            border-radius: 5px;
+            font-weight: bold;
         }
         
-        .instructions h3 {
-            margin-bottom: 10px;
-            color: #2ecc71;
+        .pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
         }
         
-        .instructions ol {
-            margin-left: 20px;
+        .granted {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
         
-        .instructions li {
-            margin-bottom: 8px;
+        .denied {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
         
-        .links-info {
-            background-color: rgba(155, 89, 182, 0.3);
-            padding: 15px;
-            border-radius: 10px;
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .stop-btn {
+            background-color: #dc3545;
+        }
+        
+        .stop-btn:hover {
+            background-color: #c82333;
+        }
+        
+        .notification-counter {
+            font-size: 18px;
             margin: 15px 0;
-            border-left: 5px solid #9b59b6;
-        }
-        
-        .links-info h3 {
-            margin-bottom: 10px;
-            color: #9b59b6;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
-            }
-        }
-        
-        @keyframes shake {
-            0%, 100% {transform: translateX(0);}
-            10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
-            20%, 40%, 60%, 80% {transform: translateX(5px);}
-        }
-        
-        .shake {
-            animation: shake 0.5s;
-        }
-        
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        
-        .loop-info {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: rgba(241, 196, 15, 0.3);
-            border-radius: 8px;
-            border-left: 4px solid #f1c40f;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Site</h1>
-        <p>Clique no botão abaixo para iniciar o processo. Serão abertos 5 pop-ups do Google. Após aceitar todos, o site sera aberto.</p>
+        <h1>🔔 Sistema de Notificações</h1>
         
-        <div class="warning">
-            <strong>AVISO:</strong> este site e criado Por CLEITI6966HUBS
+        <div id="status" class="status pending">
+            Status: Aguardando permissão para notificações...
         </div>
         
-        <div class="instructions">
-            <h3>Instruções:</h3>
+        <button id="requestBtn" onclick="requestNotificationPermission()">
+            Solicitar Permissão de Notificações
+        </button>
+        
+        <button id="startBtn" onclick="startNotifications()" disabled>
+            Iniciar Notificações (2 segundos)
+        </button>
+        
+        <button id="stopBtn" onclick="stopNotifications()" disabled class="stop-btn">
+            Parar Notificações
+        </button>
+        
+        <div id="counter" class="notification-counter" style="display: none;">
+            Notificações enviadas: <span id="count">0</span>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: left;">
+            <h3>Como funciona:</h3>
             <ol>
-                <li>Clique no botão "Iniciar Processo"</li>
-                <li>Permita que 5 pop-ups do Google sejam abertos</li>
-                <li>Aceite todos os pop-ups (não feche manualmente)</li>
-                <li>Após aceitar todos, o Site Será Aberto automaticamente</li>
+                <li>Clique em "Solicitar Permissão de Notificações"</li>
+                <li>Permita as notificações quando o navegador perguntar</li>
+                <li>Clique em "Iniciar Notificações"</li>
+                <li>As notificações aparecerão a cada 2 segundos, mesmo fora do site</li>
+                <li>Use "Parar Notificações" para interromper</li>
             </ol>
-        </div>
-        
-        <div class="popup-counter" id="popupCounter">Pop-ups abertos: 0/5</div>
-        
-        <button id="finalizarBtn">Iniciar Processo</button>
-        
-        <div id="status" class="status"></div>
-        
-        <div class="loop-info" id="loopInfo" style="display: none;">
-            <h3>Loop em Execução</h3>
-            <p>Links abertos: <span id="loopCount">0</span></p>
-            <p>Próximo link: <span id="nextLink">https://google.com/</span></p>
         </div>
     </div>
 
     <script>
-        document.getElementById('finalizarBtn').addEventListener('click', function() {
-            const button = this;
-            const status = document.getElementById('status');
-            const popupCounter = document.getElementById('popupCounter');
-            const loopInfo = document.getElementById('loopInfo');
-            
-            // Desabilita o botão para evitar múltiplos cliques
-            button.disabled = true;
-            button.textContent = 'Processando...';
-            
-            // Atualiza status
-            status.textContent = 'Abrindo pop-ups do Google...';
-            status.className = 'status active';
-            
-            let popupsOpened = 0;
-            const totalPopups = 5;
-            const popups = [];
-            
-            // Função para abrir pop-ups
-            function openPopup() {
-                if (popupsOpened < totalPopups) {
-                    const popup = window.open('https://www.google.com', `popup${popupsOpened}`, 'width=600,height=400,top=' + (100 + popupsOpened * 50) + ',left=' + (100 + popupsOpened * 50));
-                    
-                    if (popup && !popup.closed) {
-                        popups.push(popup);
-                        popupsOpened++;
-                        popupCounter.textContent = `Pop-ups abertos: ${popupsOpened}/${totalPopups}`;
-                        
-                        // Abre o próximo pop-up após um pequeno intervalo
-                        setTimeout(openPopup, 500);
-                    } else {
-                        status.textContent = 'Pop-up bloqueado! Por favor, permita pop-ups para este site e tente novamente.';
-                        status.classList.add('shake');
-                        button.disabled = false;
-                        button.textContent = 'Tentar Novamente';
-                    }
-                } else {
-                    // Todos os pop-ups foram abertos, agora inicia o loop automaticamente
-                    status.textContent = 'Todos os pop-ups foram abertos! Iniciando loop infinito...';
-                    
-                    // Inicia o loop infinito após um breve delay
-                    setTimeout(startInfiniteLoop, 1000);
-                }
+        let notificationInterval = null;
+        let notificationCount = 0;
+        let permissionGranted = false;
+
+        // Elementos DOM
+        const statusElement = document.getElementById('status');
+        const requestBtn = document.getElementById('requestBtn');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const counterElement = document.getElementById('counter');
+        const countElement = document.getElementById('count');
+
+        // Verificar se o navegador suporta notificações
+        function checkNotificationSupport() {
+            if (!("Notification" in window)) {
+                statusElement.textContent = "Status: Este navegador não suporta notificações.";
+                statusElement.className = "status denied";
+                requestBtn.disabled = true;
+                return false;
             }
-            
-            // Inicia a abertura dos pop-ups
-            openPopup();
-        });
-        
-        function startInfiniteLoop() {
-            const status = document.getElementById('status');
-            const loopInfo = document.getElementById('loopInfo');
-            const loopCount = document.getElementById('loopCount');
-            const nextLink = document.getElementById('nextLink');
-            
-            status.textContent = 'Loop infinito iniciado! Abrindo links alternadamente...';
-            loopInfo.style.display = 'block';
-            
-            let count = 0;
-            let currentLinkIndex = 0;
-            const links = [
-                'https://trava-link.vercel.app/',
-                'https://encurtador-1.vercel.app/'
-            ];
-            
-            // Função para abrir o link em loop
-            function openLink() {
-                const link = links[currentLinkIndex];
-                window.open(link, `loop${count}`);
-                count++;
-                
-                // Alterna para o próximo link
-                currentLinkIndex = (currentLinkIndex + 1) % links.length;
-                
-                // Atualiza a interface
-                loopCount.textContent = count;
-                nextLink.textContent = links[currentLinkIndex];
-                
-                // Atualiza o status periodicamente
-                if (count % 5 === 0) {
-                    status.textContent = `Loop infinito em execução... ${count} links abertos`;
-                }
-            }
-            
-            // Abre o primeiro link imediatamente
-            openLink();
-            
-            // Continua abrindo links a cada segundo
-            setInterval(openLink, 0);
+            return true;
         }
+
+        // Solicitar permissão para notificações
+        function requestNotificationPermission() {
+            if (!checkNotificationSupport()) return;
+
+            Notification.requestPermission().then(permission => {
+                updatePermissionStatus(permission);
+            }).catch(error => {
+                console.error("Erro ao solicitar permissão:", error);
+                statusElement.textContent = "Status: Erro ao solicitar permissão.";
+                statusElement.className = "status denied";
+            });
+        }
+
+        // Atualizar status da permissão
+        function updatePermissionStatus(permission) {
+            switch(permission) {
+                case "granted":
+                    statusElement.textContent = "Status: Permissão concedida! Você pode iniciar as notificações.";
+                    statusElement.className = "status granted";
+                    requestBtn.disabled = true;
+                    startBtn.disabled = false;
+                    permissionGranted = true;
+                    break;
+                case "denied":
+                    statusElement.textContent = "Status: Permissão negada. Você precisa permitir notificações manualmente nas configurações do navegador.";
+                    statusElement.className = "status denied";
+                    startBtn.disabled = true;
+                    break;
+                default:
+                    statusElement.textContent = "Status: Permissão não decidida. Você pode tentar novamente.";
+                    statusElement.className = "status pending";
+                    startBtn.disabled = true;
+            }
+        }
+
+        // Iniciar notificações automáticas
+        function startNotifications() {
+            if (!permissionGranted) {
+                alert("Permissão de notificação não concedida!");
+                return;
+            }
+
+            // Enviar primeira notificação imediatamente
+            sendNotification();
+            
+            // Configurar intervalo para notificações a cada 2 segundos
+            notificationInterval = setInterval(sendNotification, 2000);
+            
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            counterElement.style.display = 'block';
+            
+            statusElement.textContent = "Status: Notificações ativas - enviando a cada 2 segundos";
+        }
+
+        // Parar notificações
+        function stopNotifications() {
+            if (notificationInterval) {
+                clearInterval(notificationInterval);
+                notificationInterval = null;
+            }
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            
+            statusElement.textContent = "Status: Notificações paradas. Permissão ainda concedida.";
+        }
+
+        // Enviar uma notificação
+        function sendNotification() {
+            if (!permissionGranted) return;
+
+            notificationCount++;
+            countElement.textContent = notificationCount;
+
+            const options = {
+                body: `Esta é a notificação número ${notificationCount}. Enviada em ${new Date().toLocaleTimeString()}`,
+                icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiMwMDc4RDAiLz4KPHBhdGggZD0iTTMyIDE2VjM2TTMyIDQwVjQ0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMiLz4KPHN2Zz4=',
+                badge: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiNmZjAiLz4KPC9zdmc+',
+                tag: 'auto-notification',
+                requireInteraction: false,
+                silent: false
+            };
+
+            const notification = new Notification(`Notificação ${notificationCount}`, options);
+
+            // Fechar notificação automaticamente após 3 segundos
+            setTimeout(() => {
+                notification.close();
+            }, 3000);
+
+            // Lidar com clique na notificação
+            notification.onclick = function() {
+                window.focus();
+                notification.close();
+            };
+        }
+
+        // Verificar status da permissão ao carregar a página
+        window.onload = function() {
+            if (checkNotificationSupport()) {
+                updatePermissionStatus(Notification.permission);
+            }
+        };
+
+        // Limpar intervalo quando a página for fechada
+        window.onbeforeunload = function() {
+            if (notificationInterval) {
+                clearInterval(notificationInterval);
+            }
+        };
     </script>
 </body>
 </html>
